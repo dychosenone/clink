@@ -1,34 +1,25 @@
-var admin = require("firebase-admin");
-var serviceAccount = require("../serviceAccountKey.json");
+const dotenv = require('dotenv-safe');
+const mongoose = require('mongoose');
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://clink-63080-default-rtdb.firebaseio.com"
-});
+dotenv.config();
 
-const db = admin.firestore();
+const config = {
+  useUnifiedTopology: true,
+  useNewUrlParser: true
+};
 
-var connectedRef = admin.database().ref(".info/connected");
-  connectedRef.on("value", (snap) => {
-    if (snap.val() === true) {
-      console.log("Connected to Database");
-    } else {
-      console.log("Not Connected to Database");
-    }
-});
+var database = {
 
-var model = {
-
-    getUsers: async () => {
-
-        const users = await db.collection("users").get();
-        users.forEach((doc) => {
-            console.log(doc.id, '=>', doc.data(doc));
-        });
-
-    }
-    
+  connect : async () => {
+    mongoose.connect(process.env.MONGO_URI, config, (error) => {
+      if(error) {
+        throw error;
+      } else {
+        console.log(`Connected to ${process.env.MONGO_URI}`);
+      }
+    });
+  }
 
 }
 
-module.exports = model;
+module.exports = database;
