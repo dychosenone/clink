@@ -38,7 +38,7 @@ const RecipeSchema = new mongoose.Schema({
 
     reviews : {
         type: Array, 
-        require: true
+        require: false
     },
 
     author : {

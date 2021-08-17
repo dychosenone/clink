@@ -1,4 +1,5 @@
 const { Mongoose } = require('mongoose');
+const { path } = require('../app');
 const db = require('../models/db');
 
 const Recipes = require('../models/schemas/Users');
@@ -19,7 +20,21 @@ var recipes = {
     },
 
     postRecipe : async (req, res) => {
-        
+        const details = req.body;
+        const filename = req.file.filename;
+
+        const data = {
+            name : req.body.name,
+            image : './uploads/' + filename,
+            prepTime: req.body.prepTime,
+            ingredients: req.body.ingredients,
+            steps: req.body.steps,
+            reviews: [],
+            author: req.session.userId
+        }
+
+        const result = await recipeServices.addRecipe(data);
+        res.status(200).json(result);
     }
 }
 

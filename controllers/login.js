@@ -16,12 +16,16 @@ var login = {
             bcrypt.compare(password, user.password, function(err, result){
                 if(result)  {
                     const userDetails = {
+                        _id : user._id,
                         username: user.username,
                         fullname: user.fullname,
                         email: user.email,
                         birthday: user.birthday,
                         password: user.password, 
                     }
+
+                    req.session.userId = user._id;
+                    console.log(req.session.id);
 
                     return res.status(200).json({
                         data: userDetails,
@@ -40,6 +44,17 @@ var login = {
             });
         }
     },
+
+    logout : async (req, res) => {
+        req.session.destroy((error) => {
+            if(error == true) {
+                throw error;
+            }
+            res.status(200).json({
+                message: "Successfully logged out."
+            });
+        });
+    }
 };
 
 module.exports = login;
