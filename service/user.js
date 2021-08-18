@@ -1,4 +1,7 @@
 const User = require('../models/schemas/Users.js');
+const bcrypt = require('bcrypt');
+
+const SALT_ROUNDS = 10;
 
 const UserService = {
 
@@ -16,38 +19,63 @@ const UserService = {
         return newUser.save();
     },
     
-    updateUser: async (data) => {
+    updateUser: async (userId, data) => {
         try {
-            //const user = await UserService.getUser({_id: data.session.userId});
-            const user = await UserService.getUser({username: data.body.username});
-            console.log(user);
-            const { username, fullname, email, birthday, password, confirmpassword } = data.body; 
-            const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS); 
 
-            console.log(data.body.password);
-            console.log(data.body.confirmpassword);
+            const user = await UserService.getUser({_id: userId});
+            
+            //console.log(user);
+        
+            //const hashedPassword = await bcrypt.hash(data.password, SALT_ROUNDS); 
 
-            if(fullname !== '') {
-                user.fullname = fullname; 
+            //console.log(data);
+            //console.log(data.confirmpassword);
+
+            if(data.fullname !== '') {
+                user.fullname = data.fullname; 
             }
         
-            if(email !== '') {
-                user.email = email; 
+            if(data.email !== '') {
+                user.email = data.email; 
             }
         
-            if(birthday !== '') {
-                user.birthday = birthday; 
+            if(data.birthday !== '') {
+                user.birthday = data.birthday; 
             }
         
-            if(password !== '') {
-                user.password = password; 
-            }
+            //if(data.password !== '') {
+            //    user.password = hashedPassword; 
+            //}
             
             return user.save();
         } catch (err) {
             throw err; 
         }
-    }, 
+    },
+
+    changePassword : async (userId, oldPassword, newPassword) => {
+        
+        try {
+            const user = await UserService.getUser({_id: userId});
+            const hashedPassword = await bcrypt.hash(newPassword, SALT_ROUNDS);
+
+            //console.log(user.password);
+            
+            bcrypt.compare(oldPassword, user.password, function(err, result) {
+                console.log(result);
+                if(result) {
+                    //console.log("Successful");
+                    user.password = hashedPassword;
+                    return user.save();
+                } else {
+                    console.log("message: 'Password does not match'");
+                }
+            });
+        } catch(err) {
+            throw err;
+        }
+
+    }
 }
 
 

@@ -35,7 +35,82 @@ var recipes = {
 
         const result = await recipeServices.addRecipe(data);
         res.status(200).json(result);
-    }
+    },
+
+    deleteRecipe : async (req, res) => {
+        const recipeId = req.body.id;
+        
+        const result = recipeServices.deleteRecipe({_id : recipeId});
+
+        res.status(200).json(result);
+
+    },
+
+    updateRecipe : async (req, res) => {
+        //const details = req.body;
+        //const filename = req.file.filename;
+
+        const data = {
+            details: req.body,
+            filename: req.file,
+        }
+
+        const result = recipeServices.updateRecipe(data);
+
+        if(result) {
+            return res.status(200).json(result);
+        } else {
+            return res.status(404).json({ message: 'Recipe not found!'});
+        }
+    }, 
+
+    searchRecipe : async (req, res) => {
+        const searchQuery = req.body.searchQuery;
+
+        const result = await recipeServices.getRecipes({name: {$regex : searchQuery, $options: "i"}});
+
+        res.status(200).json(result);
+    },
+
+    addReview : async (req, res) => {
+        const recipeId = req.body.recipeId;
+        const reviewBody = req.body.review;
+
+        const result = await recipeServices.addReview(recipeId, reviewBody, req.session.userId);
+
+        res.status(204).json(result);
+    }, 
+
+    deleteReview : async (req, res) => {
+        const reviewId = req.body.reviewId;
+        const recipeId = req.body.recipeId;
+
+        const result = await recipeServices.deleteReview(recipeId, reviewId);
+
+        if(result) {
+            res.status(200).json(result);
+        } else {
+            res.status(404).json({ message: "Review not found!" });
+        }
+
+        
+    }, 
+
+    editReview : async (req, res) => {
+
+        const recipeId = req.body.recipeId; 
+        const reviewId = req.body.reviewId;
+        const reviewBody = req.body.review; 
+
+        const result = await recipeServices.editReview(recipeId, reviewBody, reviewId, req.session.userId); 
+    
+        if(result) {
+            res.status(200).json(result);
+        } else {
+            res.status(404).json({ message: "Review not found!" });
+        }
+    },
+
 }
 
 module.exports = recipes;

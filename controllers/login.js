@@ -25,7 +25,7 @@ var login = {
                     }
 
                     req.session.userId = user._id;
-                    console.log(req.session.id);
+                    console.log(req.session.userId);
 
                     return res.status(200).json({
                         data: userDetails,

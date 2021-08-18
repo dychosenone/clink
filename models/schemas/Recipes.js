@@ -1,5 +1,18 @@
 const mongoose = require('mongoose');
 
+const ReviewSchema = new mongoose.Schema({
+
+    userId : {
+        type: String, 
+        require: false
+    },
+    body : {
+        type : String,
+        require: false
+    }
+
+})
+
 const IngredientsSchema = new mongoose.Schema({
 
     quantity : {
@@ -36,10 +49,8 @@ const RecipeSchema = new mongoose.Schema({
         require: true
     },
 
-    reviews : {
-        type: Array, 
-        require: false
-    },
+    reviews : [ReviewSchema],
+
 
     author : {
         type: String, 
