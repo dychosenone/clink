@@ -35,9 +35,9 @@ router.post('/register', register.postRegister);
 router.post('/login', login.postLogin);
 router.get('/logout', token.authenticateToken, login.logout);
 
-
-router.get('/viewProfile', profile.viewProfile);
-router.put('/updateProfile', profile.editProfile);
+router.get('/profile/', token.authenticateToken, profile.viewProfile);
+router.put('/profile', token.authenticateToken, profile.editProfile);
+router.put('/changePassword', token.authenticateToken, profile.changePassword);
 
 router.get('/getRecipes', recipe.getRecipes);
 router.get('/getRecipe', recipe.getRecipe);
@@ -46,9 +46,9 @@ router.post('/postRecipe', recipeImageUpload.single('recipe-image'), recipe.post
 router.delete('/deleteRecipe', recipe.deleteRecipe);
 router.put('/updateRecipe', recipeImageUpload.single('recipe-image'), recipe.updateRecipe);
 
-router.put('/changePassword', profile.changePassword);
-
 router.post('/addReview', recipe.addReview);
 router.delete('/deleteReview', recipe.deleteReview);
 router.put('/editReview', recipe.editReview);
+
+
 module.exports = router;

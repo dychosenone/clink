@@ -27,15 +27,11 @@ var login = {
                         password: user.password, 
                     }
 
-                    req.session.userId = user._id;
-                    console.log(req.session.userId);
-
                     const accessToken = token.generateAccessToken(userDetails);
 
                     return res.status(200).json({
                         accessToken: accessToken, 
-                        userId : req.session.userId,
-                        message: "Successfully Logged In!", 
+                        message: "Successfully Logged In!"
                     });
                 } else {
                     return res.status(400).json({
