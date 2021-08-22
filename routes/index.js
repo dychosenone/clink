@@ -7,7 +7,7 @@ var router = express.Router();
 const model = require('../models/db.js');
 
 // Middlewares
-const checkLogin = require('../middlewares/checkLogin');
+const token = require('../middlewares/auth');
 
 // Controllers
 const register = require('../controllers/register');
@@ -33,7 +33,7 @@ const recipeImageUpload = multer({ storage: recipeImageStorage });
 router.post('/register', register.postRegister);
 
 router.post('/login', login.postLogin);
-router.get('/logout', checkLogin(), login.logout);
+router.get('/logout', token.authenticateToken, login.logout);
 
 
 router.get('/viewProfile', profile.viewProfile);

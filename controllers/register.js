@@ -24,15 +24,15 @@ var register = {
 
         if(userDetails != null) {
             return res.status(400).json({
-                error: "Username already exists",
+                message: "Username already exists",
             });
         } else if (emailDetails != null) {
             return res.status(400).json({
-                error: "E-mail already exists", 
+                message: "E-mail already exists", 
             });
         } else if (validEmailAt.length < 2 || validEmailDot.length < 2) {
             return res.status(400).json({
-                error: "E-mail does not follow valid format", 
+                message: "E-mail does not follow valid format", 
             });
         } else { 
             const newUser = {
@@ -46,7 +46,10 @@ var register = {
             newUser.password = await bcrypt.hash(req.body.password, saltRounds);
             const result = await UserService.addUser(newUser);
 
-            return res.status(201).json(result);
+            return res.status(201).json({
+                    message: "Successfully Registered",
+                    username: newUser.username,
+            });
         }
         
     },

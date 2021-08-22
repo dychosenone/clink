@@ -7,6 +7,9 @@ const multer = require('multer');
 // Session Managemnt
 const session = require('express-session');
 
+// JSON Web Tokens
+const jwt = require('jsonwebtoken');
+
 //Mongoose
 const mongoose = require('mongoose');
 

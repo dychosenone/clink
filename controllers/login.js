@@ -4,6 +4,9 @@ const bcrypt = require('bcrypt');
 const db = require('../models/db');
 const user = require('../models/schemas/Users');
 
+const token = require('../middlewares/auth.js');
+
+
 var login = {
 
     postLogin : async (req, res) => {
@@ -27,7 +30,10 @@ var login = {
                     req.session.userId = user._id;
                     console.log(req.session.userId);
 
+                    const accessToken = token.generateAccessToken(userDetails);
+
                     return res.status(200).json({
+                        accessToken: accessToken, 
                         userId : req.session.userId,
                         message: "Successfully Logged In!", 
                     });
@@ -47,9 +53,9 @@ var login = {
     logout : async (req, res) => {
         req.session.destroy((error) => {
             if(error == true) {
-                throw error;
+                console.log(error);
             }
-            res.status(200).json({
+            res.status(204).json({
                 message: "Successfully logged out."
             });
         });
