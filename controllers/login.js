@@ -28,19 +28,18 @@ var login = {
                     console.log(req.session.userId);
 
                     return res.status(200).json({
-                        data: userDetails,
+                        userId : req.session.userId,
                         message: "Successfully Logged In!", 
                     });
                 } else {
                     return res.status(400).json({
-                        username: req.body.username,
-                        passwordError: "Incorrect Password!",
+                        message: "Incorrect Password!",
                     });
                 }
             });
         } else {
             return res.status(400).json({
-                usernameError: "Username not found!"
+                message: "Username not found!"
             });
         }
     },

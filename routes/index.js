@@ -6,6 +6,9 @@ var router = express.Router();
 
 const model = require('../models/db.js');
 
+// Middlewares
+const checkLogin = require('../middlewares/checkLogin');
+
 // Controllers
 const register = require('../controllers/register');
 const login = require('../controllers/login');
@@ -30,7 +33,7 @@ const recipeImageUpload = multer({ storage: recipeImageStorage });
 router.post('/register', register.postRegister);
 
 router.post('/login', login.postLogin);
-router.get('/logout', login.logout);
+router.get('/logout', checkLogin(), login.logout);
 
 
 router.get('/viewProfile', profile.viewProfile);
