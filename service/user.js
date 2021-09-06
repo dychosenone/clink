@@ -68,6 +68,7 @@ const UserService = {
                     user.password = hashedPassword;
                     return user.save();
                 } else {
+                    return 401;
                     console.log("message: 'Password does not match'");
                 }
             });

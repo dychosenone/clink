@@ -28,6 +28,7 @@ var profile = {
             email: user.email,
             fullname: user.fullname,
             birthday: user.birthday,
+            password: user.password, 
         });
     },
 
@@ -37,7 +38,14 @@ var profile = {
 
         try {
             const result = await UserService.changePassword(req.user._id, oldPassword, newPassword);
-            return res.status(204).send(result);
+
+            if(result == 401) {
+                return res.status(401).send(result);
+            }
+            else {
+                return res.status(204).send(result);
+            }
+
         } catch(err) {
             res.status(404).json({message: 'Cannot find user.'});
         }

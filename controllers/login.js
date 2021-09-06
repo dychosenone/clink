@@ -30,11 +30,12 @@ var login = {
                     const accessToken = token.generateAccessToken(userDetails);
 
                     return res.status(200).json({
+                        id: user._id,
                         accessToken: accessToken, 
                         message: "Successfully Logged In!"
                     });
                 } else {
-                    return res.status(400).json({
+                    return res.status(401).json({
                         message: "Incorrect Password!",
                     });
                 }
