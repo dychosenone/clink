@@ -36,6 +36,8 @@ var profile = {
         const newPassword = req.body.newpassword;
         const oldPassword = req.body.oldpassword;
 
+        console.log(req.body.newpassword);
+
         try {
             const result = await UserService.changePassword(req.user._id, oldPassword, newPassword);
 

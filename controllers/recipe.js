@@ -111,6 +111,11 @@ var recipes = {
         }
     },
 
+    getImage : async(req, res) => {
+        const fileName = req.params.filename;
+        res.sendfile(`./uploads/${fileName}`);
+    }
+
 }
 
 module.exports = recipes;

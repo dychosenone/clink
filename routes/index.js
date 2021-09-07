@@ -50,5 +50,7 @@ router.post('/addReview', recipe.addReview);
 router.delete('/deleteReview', recipe.deleteReview);
 router.put('/editReview', recipe.editReview);
 
+router.get('/image/:filename', recipe.getImage);
+
 
 module.exports = router;
