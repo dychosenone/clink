@@ -13,7 +13,7 @@ var recipes = {
     },
 
     getRecipe : async (req, res) => {
-        const recipeId = req.body.id;
+        const recipeId = req.params.id;
         const recipe = await recipeServices.getRecipe({_id: recipeId});
 
         res.status(200).json(recipe);
