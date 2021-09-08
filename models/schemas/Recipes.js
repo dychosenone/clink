@@ -15,10 +15,6 @@ const ReviewSchema = new mongoose.Schema({
 
 const IngredientsSchema = new mongoose.Schema({
 
-    quantity : {
-        type: Number,
-        require: true
-    },
     ingredientName : {
         type: String,
         require: true

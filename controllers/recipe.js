@@ -65,7 +65,7 @@ var recipes = {
     }, 
 
     searchRecipe : async (req, res) => {
-        const searchQuery = req.body.searchQuery;
+        const searchQuery = req.params.searchQuery;
 
         const result = await recipeServices.getRecipes({name: {$regex : searchQuery, $options: "i"}});
 

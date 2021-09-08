@@ -28,7 +28,6 @@ var login = {
                     }
 
                     const accessToken = token.generateAccessToken(userDetails);
-
                     return res.status(200).json({
                         id: user._id,
                         accessToken: accessToken, 
