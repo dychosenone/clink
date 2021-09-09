@@ -39,10 +39,12 @@ const RecipeSchema = new mongoose.Schema({
         require: true
     },
 
-    ingredients : {
-        type: Array,
-        require: true
-    },
+    ingredients : [
+        {
+            type: String,
+            require: true
+        }
+    ],
 
     steps : {
         type: Array, 
