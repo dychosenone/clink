@@ -32,7 +32,7 @@ var recipes = {
             ingredients: req.body.ingredients,
             steps: req.body.steps,
             reviews: [],
-            author: req.session.userId
+            author: req.body.author
         }
 
         const result = await recipeServices.addRecipe(data);
