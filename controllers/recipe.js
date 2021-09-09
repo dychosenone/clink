@@ -25,7 +25,7 @@ var recipes = {
 
         const data = {
             name : req.body.name,
-            image : './uploads/' + filename,
+            image : filename,
             prepTime: req.body.prepTime,
             ingredients: req.body.ingredients,
             steps: req.body.steps,
