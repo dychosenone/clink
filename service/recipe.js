@@ -37,7 +37,7 @@ const recipeService = {
             }
 
             if(data.details.image !== '') {
-                const path = './uploads/' + data.filename.filename;  
+                const path = data.filename.filename;  
                 recipe.image = path; 
             }
         

@@ -23,6 +23,8 @@ var recipes = {
         const details = req.body;
         const filename = req.file.filename;
 
+        console.log(req.body.ingredients);
+
         const data = {
             name : req.body.name,
             image : filename,

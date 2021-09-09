@@ -11,16 +11,8 @@ const ReviewSchema = new mongoose.Schema({
         require: false
     }
 
-})
-/*
-    const IngredientsSchema = new mongoose.Schema({
+});
 
-        ingredientName : {
-            type: String,
-            require: true
-        }
-    });
-*/
 
 const RecipeSchema = new mongoose.Schema({
 
@@ -39,12 +31,10 @@ const RecipeSchema = new mongoose.Schema({
         require: true
     },
 
-    ingredients : [
-        {
-            type: String,
-            require: true
-        }
-    ],
+    ingredients : {
+        type: Array,
+        require: true
+    },
 
     steps : {
         type: Array, 
