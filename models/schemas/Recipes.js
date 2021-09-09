@@ -12,14 +12,15 @@ const ReviewSchema = new mongoose.Schema({
     }
 
 })
+/*
+    const IngredientsSchema = new mongoose.Schema({
 
-const IngredientsSchema = new mongoose.Schema({
-
-    ingredientName : {
-        type: String,
-        require: true
-    }
-});
+        ingredientName : {
+            type: String,
+            require: true
+        }
+    });
+*/
 
 const RecipeSchema = new mongoose.Schema({
 
@@ -38,7 +39,10 @@ const RecipeSchema = new mongoose.Schema({
         require: true
     },
 
-    ingredients : [IngredientsSchema],
+    ingredients : {
+        type: Array,
+        require: true
+    },
 
     steps : {
         type: Array, 

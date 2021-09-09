@@ -38,7 +38,7 @@ var recipes = {
     },
 
     deleteRecipe : async (req, res) => {
-        const recipeId = req.body.id;
+        const recipeId = req.params.id;
         
         const result = recipeServices.deleteRecipe({_id : recipeId});
 

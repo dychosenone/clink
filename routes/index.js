@@ -43,7 +43,7 @@ router.get('/getRecipes', recipe.getRecipes);
 router.get('/getRecipe/:id', recipe.getRecipe);
 router.get('/searchRecipe/:searchQuery', recipe.searchRecipe);
 router.post('/postRecipe', recipeImageUpload.single('recipe-image'), recipe.postRecipe);
-router.delete('/deleteRecipe', recipe.deleteRecipe);
+router.delete('/deleteRecipe/:id', recipe.deleteRecipe);
 router.put('/updateRecipe', recipeImageUpload.single('recipe-image'), recipe.updateRecipe);
 
 router.post('/addReview', recipe.addReview);
