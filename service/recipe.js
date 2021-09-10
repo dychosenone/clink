@@ -65,20 +65,32 @@ const recipeService = {
 
     addReview : async (recipeId, reviewBody, userId) => {
 
-        try {
+        //try {
             
             const recipes = await recipeService.getRecipe({_id : recipeId});
             const review = {
                 userId : userId,
                 body: reviewBody
             };
-            recipes.reviews.push(review);
-            
+
+            console.log(recipes.ingredients);
+            console.log(review);
+
+            const obj = JSON.parse(recipes);
+            console.log(review);
+
+            obj["reviews"].push(review);
+            console.log(review);
+
+            recipes = JSON.stringify(obj);
+            console.log(review);
+
+            //recipes.reviews.add(review);
             return recipes.save();
 
-        } catch(err) {
-            throw err;
-        }
+        //} catch(err) {
+        //    throw err;
+        //}
 
     }, 
 

@@ -74,11 +74,19 @@ var recipes = {
 
     addReview : async (req, res) => {
         const recipeId = req.body.recipeId;
-        const reviewBody = req.body.review;
+        const reviewBody = req.body.body;
 
-        const result = await recipeServices.addReview(recipeId, reviewBody, req.session.userId);
+        console.log(recipeId);
+        console.log(reviewBody);
+        console.log(req.body.userId);
 
-        res.status(204).json(result);
+        const result = await recipeServices.addReview(recipeId, reviewBody, req.body.userId);
+
+        if(result) {
+            res.status(200).json(result);
+        } else {
+            res.status(400).json({ message: 'Recipe not found!'});
+        }
     }, 
 
     deleteReview : async (req, res) => {
