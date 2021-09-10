@@ -26,6 +26,8 @@ const token = {
   
         // get username
         req.user = user;
+
+        console.log(user._id);
   
         // move to next route function
         next();

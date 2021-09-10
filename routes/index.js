@@ -42,7 +42,7 @@ router.put('/changePassword', token.authenticateToken, profile.changePassword);
 router.get('/getRecipes', recipe.getRecipes);
 router.get('/getRecipe/:id', recipe.getRecipe);
 router.get('/searchRecipe/:searchQuery', recipe.searchRecipe);
-router.post('/postRecipe', recipeImageUpload.single('recipe-image'), token.authenticateToken, recipe.postRecipe);
+router.post('/postRecipe', token.authenticateToken, recipeImageUpload.single('recipe-image'), recipe.postRecipe);
 router.delete('/deleteRecipe/:id', recipe.deleteRecipe);
 router.put('/updateRecipe', recipeImageUpload.single('recipe-image'), recipe.updateRecipe);
 
