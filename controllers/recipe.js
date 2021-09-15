@@ -15,7 +15,6 @@ var recipes = {
     getRecipe : async (req, res) => {
         const recipeId = req.params.id;
         const recipe = await recipeServices.getRecipe({_id: recipeId});
-        console.log(recipe);
         res.status(200).json(recipe);
     },
 
@@ -51,16 +50,38 @@ var recipes = {
         //const filename = req.file.filename;
 
         const data = {
-            details: req.body,
-            filename: req.file,
+            name : req.body.name,
+            prepTime: req.body.prepTime,
+            ingredients: req.body.ingredients,
+            steps: req.body.steps,
+            _id: req.body._id
         }
 
         const result = recipeServices.updateRecipe(data);
 
         if(result) {
-            return res.status(200).json(result);
+            res.status(200).json(result);
         } else {
-            return res.status(404).json({ message: 'Recipe not found!'});
+            res.status(404).json({ message: 'Recipe not found!'});
+        }
+    }, 
+
+    updateImage : async (req, res) => {
+        const filename = req.file.filename;
+
+        const data = {
+            image: filename,
+            _id: req.body._id 
+        }
+
+        console.log(data.image);
+
+        const result = recipeServices.updateImage(data);
+
+        if(result) {
+            res.status(200).json(result);
+        } else {
+            res.status(404).json({ message: 'Recipe not found!'});
         }
     }, 
 

@@ -23,45 +23,53 @@ const recipeService = {
     deleteRecipe: async (data) => Recipes.deleteOne(data), 
 
     updateRecipe: async (data) => {
-        try {
+            const recipe = await recipeService.getRecipe({ _id: data._id});
             
-            const recipe = await recipeService.getRecipe({ _id: data.details.id});
-            
-            console.log(recipe);
         
             //console.log(data);
             //console.log(data.confirmpassword);
 
-            if(data.details.name !== '') {
-                recipe.name = data.details.name; 
-            }
-
-            if(data.details.image !== '') {
-                const path = data.filename.filename;  
-                recipe.image = path; 
+            if(data.name !== '') {
+                recipe.name = data.name; 
             }
         
-            if(data.details.prepTime !== '') {
-                recipe.prepTime = data.details.prepTime; 
+            if(data.prepTime !== '') {
+                recipe.prepTime = data.prepTime; 
             }
         
             //if(data.author !== '') {
             //    recipe.author = data.author; 
             //}
         
-            if(data.details.ingredients !== '') {
-                recipe.ingredients = data.details.ingredients; 
+            if(data.ingredients !== '') {
+                recipe.ingredients = data.ingredients; 
             }
 
-            if(data.details.steps !== '') {
-                recipe.steps = data.details.steps; 
+            if(data.steps !== '') {
+                recipe.steps = data.steps; 
             }
             
             return recipe.save();
-        } catch (err) {
-            throw err; 
-        }
     }, 
+
+    updateImage: async (data) => {
+
+            const recipe = await recipeService.getRecipe({ _id: data._id});
+            
+            console.log(recipe);
+            console.log("updateImage Services");
+            console.log(recipe.image);
+            console.log(data.image);
+        
+            if(data.image !== '') {
+                const path = data.image;  
+                recipe.image = path; 
+            }
+        
+            
+            return recipe.save();
+    }, 
+
 
     addReview : async (recipeId, reviewBody, userId) => {
 
