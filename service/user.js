@@ -7,6 +7,11 @@ const UserService = {
 
     getUser: async (data) => User.findOne(data),
 
+    getUsername: async(user) => {
+        const result = User.findOne(user);
+        return result;
+    },
+
     addUser: async (user) => {
         const newUser = new User({
             username: user.username,

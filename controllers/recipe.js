@@ -15,7 +15,7 @@ var recipes = {
     getRecipe : async (req, res) => {
         const recipeId = req.params.id;
         const recipe = await recipeServices.getRecipe({_id: recipeId});
-
+        console.log(recipe);
         res.status(200).json(recipe);
     },
 
@@ -72,6 +72,13 @@ var recipes = {
         res.status(200).json(result);
     },
 
+    getReview : async(req, res) => {
+        const recipeId = req.params.recipeId;
+        const result = await recipeServices.getRecipe({_id: recipeId});
+
+        return result.reviews;
+    },
+
     addReview : async (req, res) => {
         const recipeId = req.body.recipeId;
         const reviewBody = req.body.body;
@@ -90,8 +97,10 @@ var recipes = {
     }, 
 
     deleteReview : async (req, res) => {
-        const reviewId = req.body.reviewId;
-        const recipeId = req.body.recipeId;
+        const reviewId = req.params.reviewId;
+        const recipeId = req.params.recipeId;
+        const userId = req.user._id;
+
 
         const result = await recipeServices.deleteReview(recipeId, reviewId);
 

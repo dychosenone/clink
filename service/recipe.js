@@ -86,6 +86,7 @@ const recipeService = {
     deleteReview : async (recipeId, reviewId) => {
         try {
             const recipe = {_id : recipeId};
+            console.log(recipe);
 
             const editReview = {
                 $pull : { reviews : {_id: reviewId} } 

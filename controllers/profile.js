@@ -32,6 +32,14 @@ var profile = {
         });
     },
 
+    getUsername : async(req, res) => {
+        const userId = req.params.id;
+        const result = await UserService.getUsername({_id : userId});
+        console.log(result.username);
+
+        res.status(200).json({username: result.username});
+    },
+
     changePassword : async (req, res) => {
         const newPassword = req.body.newpassword;
         const oldPassword = req.body.oldpassword;
