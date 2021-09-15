@@ -76,7 +76,7 @@ var recipes = {
         const recipeId = req.params.recipeId;
         const result = await recipeServices.getRecipe({_id: recipeId});
 
-        return result.reviews;
+        res.status(200).json(result.reviews);
     },
 
     addReview : async (req, res) => {

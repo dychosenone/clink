@@ -46,15 +46,14 @@ router.get('/getRecipe/:id', recipe.getRecipe);
 router.get('/searchRecipe/:searchQuery', recipe.searchRecipe);
 router.post('/postRecipe', token.authenticateToken, recipeImageUpload.single('recipe-image'), recipe.postRecipe);
 router.delete('/deleteRecipe/:id', recipe.deleteRecipe);
-router.put('/updateRecipe', recipeImageUpload.single('recipe-image'), recipe.updateRecipe);
+router.post('/updateRecipe', recipeImageUpload.single('recipe-image'), recipe.updateRecipe);
 
 
-router.get('/getReviews/:recipeId', recipe.getReviews)
+router.get('/getReviews/:recipeId', recipe.getReview);
 router.post('/addReview', recipe.addReview);
 router.delete('/deleteReview/:recipeId/:reviewId', token.authenticateToken, recipe.deleteReview);
 router.put('/editReview', recipe.editReview);
 
 router.get('/image/:filename', recipe.getImage);
-
 
 module.exports = router;
