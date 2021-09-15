@@ -48,6 +48,9 @@ router.post('/postRecipe', token.authenticateToken, recipeImageUpload.single('re
 router.delete('/deleteRecipe/:id', recipe.deleteRecipe);
 router.post('/updateRecipe', recipeImageUpload.single('recipe-image'), recipe.updateRecipe);
 
+//recipeImageUpload.single('recipe-image'),
+router.post('/updateRecipe', token.authenticateToken, recipe.updateRecipe);
+router.post('/updateImage', token.authenticateToken, recipeImageUpload.single('recipe-image'), recipe.updateImage);
 
 router.get('/getReviews/:recipeId', recipe.getReview);
 router.post('/addReview', recipe.addReview);
