@@ -48,18 +48,42 @@ var profile = {
     changePassword : async (req, res) => {
         const newPassword = req.body.newpassword;
         const oldPassword = req.body.oldpassword;
+        const errors = {};
 
-        console.log(req.body.newpassword);
-
+        console.log(req.body.oldpassword);
         try {
-            const result = await UserService.changePassword(req.user._id, oldPassword, newPassword);
+            const user = await UserService.getUser({_id: req.user._id});
 
-            if(result == 401) {
-                res.status(401).send(result);
+            console.log(user);
+            const comparePass = await bcrypt.compare(
+                oldPassword,
+                user.password
+            );
+
+            console.log(comparePass);
+
+            if (!comparePass) {
+                const details = {
+                message: 'Password does not match',
+                };
+                errors.passwordError = details;
+            } else {
+                const result = await UserService.changePassword(req.user._id, oldPassword, newPassword);
+                return res.status(204).send(result);
             }
-            else {
-                res.status(204).send(result);
+
+            if (Object.entries(errors).length != 0) {
+                return res.status(401).json(errors);
             }
+
+                const result = await UserService.changePassword(req.user._id, oldPassword, newPassword);
+
+                //if(result == 401) {
+                    //res.status(401).send(result);
+                //}
+                //else {
+                    return res.status(204).send(result);
+                //}
 
         } catch(err) {
             res.status(404).json({message: 'Cannot find user.'});
