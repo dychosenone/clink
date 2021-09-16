@@ -1,23 +1,29 @@
+// Database Models
 const { Mongoose } = require('mongoose');
 const { path } = require('../app');
 const db = require('../models/db');
 
+// Database Models nad Services
 const Recipes = require('../models/schemas/Users');
 const recipeServices = require('../service/recipe');
 
+// Recipe related Functions
 var recipes = { 
 
+    // Gets all the recipes in the database
     getRecipes : async (req, res) => {
         const recipes = await recipeServices.getRecipes({});
         res.status(200).json(recipes);
     },
 
+    // Gets a specified recipe using the recipe ID
     getRecipe : async (req, res) => {
         const recipeId = req.params.id;
         const recipe = await recipeServices.getRecipe({_id: recipeId});
         res.status(200).json(recipe);
     },
 
+    // Uploads a new recipe to the database
     postRecipe : async (req, res) => {
         const details = req.body;
         const filename = req.file.filename;
@@ -36,6 +42,7 @@ var recipes = {
         res.status(200).json(result);
     },
 
+    // Deletes a recipe from the database
     deleteRecipe : async (req, res) => {
         const recipeId = req.params.id;
         
@@ -44,7 +51,8 @@ var recipes = {
         res.status(200).json(result);
 
     },
-
+    
+    // Updates a recipe in the database
     updateRecipe : async (req, res) => {
 
         const data = {
@@ -64,6 +72,7 @@ var recipes = {
         }
     }, 
 
+    // Updates the uploaded image in the database
     updateImage : async (req, res) => {
         const filename = req.file.filename;
 
@@ -82,7 +91,8 @@ var recipes = {
             res.status(404).json({ message: 'Recipe not found!'});
         }
     }, 
-
+    
+    // Searches for a recipe with a specific name in the database
     searchRecipe : async (req, res) => {
         const searchQuery = req.params.searchQuery;
 
@@ -91,6 +101,7 @@ var recipes = {
         res.status(200).json(result);
     },
 
+    // Gets the review of a specific Recipe
     getReview : async(req, res) => {
         const recipeId = req.params.recipeId;
         const result = await recipeServices.getRecipe({_id: recipeId});
@@ -98,6 +109,7 @@ var recipes = {
         res.status(200).json(result.reviews);
     },
 
+    // Adds a review to a recipe in the database
     addReview : async (req, res) => {
         const recipeId = req.body.recipeId;
         const reviewBody = req.body.body;
@@ -115,6 +127,7 @@ var recipes = {
         }
     }, 
 
+    // Deletes a review given a review and recipe id
     deleteReview : async (req, res) => {
         const reviewId = req.params.reviewId;
         const recipeId = req.params.recipeId;
@@ -131,7 +144,8 @@ var recipes = {
 
         
     }, 
-
+    
+    // Updates the body of the review
     editReview : async (req, res) => {
 
         const recipeId = req.body.recipeId; 
@@ -156,4 +170,5 @@ var recipes = {
 
 }
 
+// Export Function
 module.exports = recipes;

@@ -5,13 +5,16 @@ const SALT_ROUNDS = 10;
 
 const UserService = {
 
+    // Gets one specific user
     getUser: async (data) => User.findOne(data),
 
+    // Gets the username
     getUsername: async(user) => {
         const result = User.findOne(user);
         return result;
     },
 
+    // Adds a user to the database
     addUser: async (user) => {
         const newUser = new User({
             username: user.username,
@@ -24,6 +27,7 @@ const UserService = {
         return newUser.save();
     },
     
+    // Updates a users credentials
     updateUser: async (userId, data) => {
         try {
 
@@ -48,6 +52,8 @@ const UserService = {
         }
     },
 
+
+    // Changes the user's current password
     changePassword : async (userId, oldPassword, newPassword) => {
         
         try {
@@ -72,5 +78,5 @@ const UserService = {
     }
 }
 
-
+// Exports Function
 module.exports = UserService; 

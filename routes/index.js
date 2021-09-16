@@ -1,9 +1,10 @@
-const path = require('path');
-
+// External Plugins
 const json = require('body-parser');
 var express = require('express');
 var router = express.Router();
+const path = require('path');
 
+// Database Model
 const model = require('../models/db.js');
 
 // Middlewares
@@ -28,7 +29,9 @@ const recipeImageStorage = multer.diskStorage({
   filename : (req, file, cb) => {
       cb(null, uuidv4() + ".jpg");
   }
-})
+});
+
+// Multer Configuration
 const recipeImageUpload = multer({ storage: recipeImageStorage });
 
 // API Call Routes

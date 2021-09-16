@@ -1,13 +1,17 @@
+// Import User Services and Bcrypt Encryption Plugin
 const UserService = require('../service/user.js');
 const bcrypt = require('bcrypt');
 
+// Password Salt Encyrption Rounds
 const SALT_ROUNDS = 10;
 
+// Database Models
 const db = require('../models/db');
 const user = require('../models/schemas/Users');
 
+// Profile Functions
 var profile = {
-
+    // Edit Profile
     editProfile: async (req, res) => {
         try {
             await UserService.updateUser(req.user._id, req.body);
@@ -17,7 +21,7 @@ var profile = {
         }
 
     },
-
+    // Get Profile
     viewProfile: async (req, res) => {
         const userId = req.user._id;
         const user = await UserService.getUser({_id: userId});
@@ -31,7 +35,7 @@ var profile = {
             password: user.password, 
         });
     },
-
+    // Get Username Only (For Recipe Reviews)
     getUsername : async(req, res) => {
         const userId = req.params.id;
         const result = await UserService.getUsername({_id : userId});
@@ -40,6 +44,7 @@ var profile = {
         res.status(200).json({username: result.username});
     },
 
+    // Change Password Function
     changePassword : async (req, res) => {
         const newPassword = req.body.newpassword;
         const oldPassword = req.body.oldpassword;
@@ -64,4 +69,5 @@ var profile = {
 
 }
 
+// Exports Function
 module.exports = profile; 

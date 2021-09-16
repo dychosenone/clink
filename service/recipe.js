@@ -1,12 +1,15 @@
-const RecipeModel = require('../models/schemas/Recipes.js');
+// Import database models
 const Recipes = require('../models/schemas/Recipes.js');
 
 const recipeService = {
 
+    // Gets all recipes from the database
     getRecipes : async (data) => Recipes.find(data),
 
+    // Gets a recipe from the database
     getRecipe : async (data) => Recipes.findOne(data), 
 
+    // Adds a recipe to the database
     addRecipe : async (recipe) => {
         const newRecipe = new Recipes({
             name : recipe.name,
@@ -21,8 +24,10 @@ const recipeService = {
         return newRecipe.save();
     },
 
+    // Deletes a recipe from the database
     deleteRecipe: async (data) => Recipes.deleteOne(data), 
 
+    // Updates a recipe from the database
     updateRecipe: async (data) => {
             const recipe = await recipeService.getRecipe({ _id: data._id});
 
@@ -45,6 +50,7 @@ const recipeService = {
             return recipe.save();
     }, 
 
+    // Updates a recipe image from the database
     updateImage: async (data) => {
 
             const recipe = await recipeService.getRecipe({ _id: data._id});
@@ -63,7 +69,7 @@ const recipeService = {
             return recipe.save();
     }, 
 
-
+    // Adds a review to a recipe
     addReview : async (recipeId, reviewBody, userId) => {
 
         const recipes = await recipeService.getRecipe({_id : recipeId});
@@ -84,6 +90,7 @@ const recipeService = {
 
     }, 
 
+    // Deletes an exisiting review
     deleteReview : async (recipeId, reviewId) => {
         try {
             const recipe = {_id : recipeId};
@@ -101,6 +108,7 @@ const recipeService = {
         }
     }, 
 
+    // Edits an existing review
     editReview : async (recipeId, reviewBody, reviewId, userId) => {
 
         try {
@@ -120,4 +128,5 @@ const recipeService = {
     
 };
 
+// Export Function
 module.exports = recipeService;

@@ -1,14 +1,17 @@
+// Import User Services and Bcrypt Encryption Plugin
 const UserService = require('../service/user.js');
 const bcrypt = require('bcrypt');
 
+// Database Models
 const db = require('../models/db');
 const user = require('../models/schemas/Users');
 
+// Import JSON Authentication File
 const token = require('../middlewares/auth.js');
 
-
+// Login Functions
 var login = {
-
+    // Main Login Function
     postLogin : async (req, res) => {
 
         const username = req.body.username; 
@@ -16,6 +19,7 @@ var login = {
 
         const user = await UserService.getUser({username: username});
         if(user != null) {
+            // Compares encrpyted password
             bcrypt.compare(password, user.password, function(err, result){
                 if(result)  {
                     const userDetails = {
@@ -26,7 +30,7 @@ var login = {
                         birthday: user.birthday,
                         password: user.password, 
                     }
-
+                    // Creates a JSON Access Token
                     const accessToken = token.generateAccessToken(userDetails);
                     return res.status(200).json({
                         id: user._id,
@@ -46,16 +50,6 @@ var login = {
         }
     },
 
-    logout : async (req, res) => {
-        req.session.destroy((error) => {
-            if(error == true) {
-                console.log(error);
-            }
-            res.status(204).json({
-                message: "Successfully logged out."
-            });
-        });
-    }
 };
 
 module.exports = login;
