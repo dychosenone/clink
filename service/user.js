@@ -29,12 +29,6 @@ const UserService = {
 
             const user = await UserService.getUser({_id: userId});
             
-            //console.log(user);
-        
-            //const hashedPassword = await bcrypt.hash(data.password, SALT_ROUNDS); 
-
-            //console.log(data);
-            //console.log(data.confirmpassword);
 
             if(data.fullname !== '') {
                 user.fullname = data.fullname; 
@@ -48,10 +42,6 @@ const UserService = {
                 user.birthday = data.birthday; 
             }
         
-            //if(data.password !== '') {
-            //    user.password = hashedPassword; 
-            //}
-            
             return user.save();
         } catch (err) {
             throw err; 
@@ -64,12 +54,10 @@ const UserService = {
             const user = await UserService.getUser({_id: userId});
             const hashedPassword = await bcrypt.hash(newPassword, SALT_ROUNDS);
 
-            //console.log(user.password);
             
             bcrypt.compare(oldPassword, user.password, function(err, result) {
                 console.log(result);
                 if(result) {
-                    //console.log("Successful");
                     user.password = hashedPassword;
                     return user.save();
                 } else {

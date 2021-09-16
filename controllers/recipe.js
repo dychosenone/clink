@@ -46,8 +46,6 @@ var recipes = {
     },
 
     updateRecipe : async (req, res) => {
-        //const details = req.body;
-        //const filename = req.file.filename;
 
         const data = {
             name : req.body.name,
@@ -137,11 +135,13 @@ var recipes = {
     editReview : async (req, res) => {
 
         const recipeId = req.body.recipeId; 
-        const reviewId = req.body.reviewId;
-        const reviewBody = req.body.review; 
+        const reviewId = req.body._id;
+        const reviewBody = req.body.body; 
 
-        const result = await recipeServices.editReview(recipeId, reviewBody, reviewId, req.session.userId); 
-    
+        console.log(req.body);
+
+        const result = await recipeServices.editReview(recipeId, reviewBody, reviewId, req.body._id); 
+
         if(result) {
             res.status(200).json(result);
         } else {

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+
+// Review Database Structure
 const ReviewSchema = new mongoose.Schema({
 
     userId : {
@@ -13,7 +15,7 @@ const ReviewSchema = new mongoose.Schema({
 
 });
 
-
+// Recipe Database Structure
 const RecipeSchema = new mongoose.Schema({
 
     name : {

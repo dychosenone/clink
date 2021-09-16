@@ -9,7 +9,7 @@ const config = {
 };
 
 var database = {
-
+  // Used to connect to the MongoDB Database
   connect : async () => {
     mongoose.connect(process.env.MONGO_URI, config, (error) => {
       if(error) {
@@ -22,4 +22,5 @@ var database = {
 
 }
 
+// Export Function
 module.exports = database;

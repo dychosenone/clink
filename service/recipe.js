@@ -1,3 +1,4 @@
+const RecipeModel = require('../models/schemas/Recipes.js');
 const Recipes = require('../models/schemas/Recipes.js');
 
 const recipeService = {
@@ -24,10 +25,6 @@ const recipeService = {
 
     updateRecipe: async (data) => {
             const recipe = await recipeService.getRecipe({ _id: data._id});
-            
-        
-            //console.log(data);
-            //console.log(data.confirmpassword);
 
             if(data.name !== '') {
                 recipe.name = data.name; 
@@ -36,10 +33,6 @@ const recipeService = {
             if(data.prepTime !== '') {
                 recipe.prepTime = data.prepTime; 
             }
-        
-            //if(data.author !== '') {
-            //    recipe.author = data.author; 
-            //}
         
             if(data.ingredients !== '') {
                 recipe.ingredients = data.ingredients; 
@@ -112,30 +105,18 @@ const recipeService = {
 
         try {
 
-            //const review = await recipeService.getRecipe({_id : recipeId, "reviews.userId" : reviewId});
-            const review = {_id : recipeId, "reviews._id" : reviewId};
-            //recipes.find({"review._id": reviewId});
+            const filter = {_id: recipeId, reviews : {$elemMatch : {_id : reviewId}}};
+            const query = {$set : {"reviews.$.body" : reviewBody}};
 
-            const editReview = {
-                $set : { "reviews.$.body" : String(reviewBody) } 
-            };
 
-            const result = await Recipes.updateOne(review, editReview); 
+            const result = await Recipes.updateOne(filter, query); 
 
-            //recipes.reviews.getReview({_id: reviewId});
-            //if(userId == review.userId) {
-            //    review.body = reviewBody; 
-                
-            //    return review.save(); 
-            //} else {
-            //    console.log("wrong user!");
-            //}
             return result; 
         } catch(err) {
             throw err; 
         }
-        
-    }, 
+
+    },
     
 };
 

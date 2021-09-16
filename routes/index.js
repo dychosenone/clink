@@ -15,9 +15,11 @@ const login = require('../controllers/login');
 const recipe = require('../controllers/recipe');
 const profile = require('../controllers/profile');
 
+// File Upload
 const multer = require('multer');
 const {v4: uuidv4} = require('uuid');
 
+// File Database Setup
 const recipeImageStorage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, './uploads');
@@ -29,7 +31,7 @@ const recipeImageStorage = multer.diskStorage({
 })
 const recipeImageUpload = multer({ storage: recipeImageStorage });
 
-/* GET home page. */
+// API Call Routes
 router.post('/register', register.postRegister);
 
 router.post('/login', login.postLogin);
@@ -48,7 +50,6 @@ router.post('/postRecipe', token.authenticateToken, recipeImageUpload.single('re
 router.delete('/deleteRecipe/:id', recipe.deleteRecipe);
 router.post('/updateRecipe', recipeImageUpload.single('recipe-image'), recipe.updateRecipe);
 
-//recipeImageUpload.single('recipe-image'),
 router.post('/updateRecipe', token.authenticateToken, recipe.updateRecipe);
 router.post('/updateImage', token.authenticateToken, recipeImageUpload.single('recipe-image'), recipe.updateImage);
 
@@ -59,4 +60,6 @@ router.put('/editReview', recipe.editReview);
 
 router.get('/image/:filename', recipe.getImage);
 
+
+// Export Function
 module.exports = router;
