@@ -38,7 +38,7 @@ const recipeImageUpload = multer({ storage: recipeImageStorage });
 router.post('/register', register.postRegister);
 
 router.post('/login', login.postLogin);
-router.get('/logout', token.authenticateToken, login.logout);
+//router.get('/logout', token.authenticateToken, login.logout);
 
 router.get('/profile/', token.authenticateToken, profile.viewProfile);
 router.put('/profile', token.authenticateToken, profile.editProfile);

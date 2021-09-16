@@ -55,10 +55,10 @@ var profile = {
             const result = await UserService.changePassword(req.user._id, oldPassword, newPassword);
 
             if(result == 401) {
-                return res.status(401).send(result);
+                res.status(401).send(result);
             }
             else {
-                return res.status(204).send(result);
+                res.status(204).send(result);
             }
 
         } catch(err) {

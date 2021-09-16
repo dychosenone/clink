@@ -60,17 +60,18 @@ const UserService = {
             const user = await UserService.getUser({_id: userId});
             const hashedPassword = await bcrypt.hash(newPassword, SALT_ROUNDS);
 
-            
             bcrypt.compare(oldPassword, user.password, function(err, result) {
                 console.log(result);
                 if(result) {
                     user.password = hashedPassword;
-                    return user.save();
                 } else {
-                    return 401;
                     console.log("message: 'Password does not match'");
+                    return 401;
                 }
             });
+
+            return user.save();
+
         } catch(err) {
             throw err;
         }
