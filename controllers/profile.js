@@ -76,14 +76,9 @@ var profile = {
                 return res.status(401).json(errors);
             }
 
-                const result = await UserService.changePassword(req.user._id, oldPassword, newPassword);
+            const result = await UserService.changePassword(req.user._id, oldPassword, newPassword);
 
-                //if(result == 401) {
-                    //res.status(401).send(result);
-                //}
-                //else {
-                    return res.status(204).send(result);
-                //}
+            return res.status(204).send(result);
 
         } catch(err) {
             res.status(404).json({message: 'Cannot find user.'});
